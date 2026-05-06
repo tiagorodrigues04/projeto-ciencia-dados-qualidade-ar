@@ -95,8 +95,9 @@ Foram realizadas as seguintes transformações:
 - criação da variável temporal **`timestamp`**  
 - extração de variáveis temporais derivadas  
 - aplicação de **One-Hot Encoding** às variáveis categóricas `day_of_week` e `month`  
-- aplicação de **StandardScaler** às variáveis numéricas preditoras  
 - manutenção da variável-alvo na escala original  
+
+O escalonamento das variáveis numéricas preditoras com **StandardScaler** foi deliberadamente reservado para a fase de modelação, sendo aplicado dentro de um pipeline dedicado no notebook `2.0_modelacao_treino.ipynb`. Esta opção garante que o scaler é ajustado exclusivamente com base nos dados de treino, evitando fugas de informação (*data leakage*) para o conjunto de teste.
 
 ---
 
@@ -117,6 +118,8 @@ Estas variáveis permitem captar:
 - efeitos sazonais  
 - comportamento agregado dos sensores  
 
+Na etapa de seleção de atributos, as variáveis **`PT08.S2(NMHC)`** e **`sensor_mean`** foram removidas por apresentarem correlação absoluta superior a `0.90` com outras variáveis preditoras, reduzindo assim problemas de multicolinearidade.
+
 ---
 
 ## 4. Dicionário de Dados Final
@@ -126,7 +129,6 @@ Estas variáveis permitem captar:
 | `CO(GT)` | Float | Variável-alvo: concentração de monóxido de carbono |
 | `PT08.S1(CO)` | Float | Leitura do sensor relacionada com CO |
 | `C6H6(GT)` | Float | Concentração de benzeno |
-| `PT08.S2(NMHC)` | Float | Leitura do sensor relacionada com NMHC |
 | `NOx(GT)` | Float | Concentração de óxidos de azoto |
 | `PT08.S3(NOx)` | Float | Leitura do sensor relacionada com NOx |
 | `NO2(GT)` | Float | Concentração de dióxido de azoto |
@@ -135,18 +137,18 @@ Estas variáveis permitem captar:
 | `T` | Float | Temperatura |
 | `RH` | Float | Humidade relativa |
 | `AH` | Float | Humidade absoluta |
-| `hour` | Float | Hora do dia (variável transformada e normalizada) |
+| `hour` | Float | Hora do dia (extraída do timestamp) |
 | `day_of_week_*` | Binária | Encoding do dia da semana |
 | `month_*` | Binária | Encoding do mês |
 | `is_weekend` | Binária | Indicador de fim de semana |
 | `is_warm_season` | Binária | Indicador de estação quente |
-| `sensor_mean` | Float | Média das leituras dos sensores |
 
 Foram removidas:
 - colunas vazias  
-- `NMHC(GT)`  
-- `Date`, `Time`, `timestamp`  
-- variáveis redundantes (multicolinearidade elevada)  
+- `NMHC(GT)` — percentagem excessiva de valores em falta  
+- `Date`, `Time`, `timestamp` — substituídas por variáveis temporais derivadas  
+- `PT08.S2(NMHC)` — correlação absoluta > 0.90 com `C6H6(GT)` (multicolinearidade)  
+- `sensor_mean` — correlação absoluta > 0.90 com múltiplos sensores (multicolinearidade)  
 
 ---
 
@@ -163,11 +165,11 @@ Principais conclusões:
 - existiam problemas de qualidade de dados que foram corrigidos  
 - a imputação e limpeza melhoraram a consistência do dataset  
 - a engenharia de atributos enriqueceu a representação dos dados  
-- a seleção de atributos reduziu multicolinearidade  
+- a seleção de atributos reduziu multicolinearidade, removendo `PT08.S2(NMHC)` e `sensor_mean`  
 - o dataset final ficou preparado para modelação  
 
 > O dataset encontra-se limpo, estruturado e adequado para aplicação de modelos de regressão.
 
 ---
 
-*Data de última atualização: 20/04/2026*
+*Data de última atualização: 06/05/2026*
