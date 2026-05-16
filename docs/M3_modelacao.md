@@ -8,7 +8,7 @@ Nesta fase o objetivo era construir e comparar modelos capazes de prever a conce
 Dividimos os dados em 80% para treino e 20% para teste.  
 Como o dataset tem uma componente temporal, são medições horárias ao longo do tempo, fizemos a divisão de forma cronológica, ou seja, o modelo é treinado com os dados mais antigos e testado com os mais recentes. Achámos que fazia mais sentido do que uma divisão aleatória, porque é assim que funcionaria na realidade.
 
-Para além disso, usámos validação cruzada com `TimeSeriesSplit`, o que nos permitiu testar o modelo em diferentes períodos temporais e ter mais confiança nos resultados — em vez de depender de uma única divisão que poderia ser favorável por acaso.
+Para além disso, usámos validação cruzada com `TimeSeriesSplit`, o que nos permitiu testar o modelo em diferentes períodos temporais e ter mais confiança nos resultados, em vez de depender de uma única divisão que poderia ser favorável por acaso.
 
 Definimos também um pipeline de pré-processamento para garantir que as transformações eram sempre feitas da mesma forma e apenas com base nos dados de treino. Esse pipeline inclui:
 
