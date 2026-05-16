@@ -16,7 +16,7 @@ O dataset cobre o período de março de 2004 a fevereiro de 2005, com registos h
 
 O histograma e o boxplot revelaram que a distribuição é assimétrica à direita: a maioria dos valores está concentrada entre 0 e 4 mg/m³, mas existem valores extremos que chegam a ultrapassar os 10 mg/m³. A mediana é inferior à média, o que confirma a assimetria positiva. Estes valores extremos não devem ser removidos pois correspondem a episódios reais de poluição elevada.
 
-*(Figura 1 — Histograma e boxplot da variável-alvo `CO(GT)`, reports/figures/)*
+
 
 #### Estatísticas Descritivas das Variáveis Numéricas
 
@@ -47,7 +47,7 @@ O que mais nos chamou a atenção nesta análise foi perceber o quanto as escala
 
 Para perceber quais as variáveis com maior relação linear com `CO(GT)`, foi gerada uma matriz de correlação de Pearson e gráficos de dispersão entre a variável-alvo e as restantes variáveis.
 
-*(Figura 2 — Matriz de correlação (heatmap) das variáveis numéricas, reports/figures/)*
+![Matriz de correlação das variáveis numéricas](../Heatmap.png)
 
 #### Correlações com `CO(GT)` (coeficiente de Pearson r)
 
@@ -111,7 +111,7 @@ Verificámos se existiam linhas completamente duplicadas no dataset, porque era 
 
 Para identificar os outliers, foi utilizado o método do intervalo interquartil (IQR). Nas variáveis preditoras, foi aplicado clipping para limitar os valores ao intervalo `[Q1 − 1.5×IQR, Q3 + 1.5×IQR]`. A variável-alvo `CO(GT)` foi mantida sem alterações — os valores extremos de CO podem corresponder a episódios reais de poluição elevada e não devem ser removidos.
 
-*(Figura 3 — Análise de outliers por variável preditora, reports/figures/)*
+
 
 ### 2.5. Sumário da Limpeza
 
@@ -155,7 +155,7 @@ Foram criadas variáveis novas com potencial relevância para a modelação:
 
 Na fase de seleção de atributos, `PT08.S2(NMHC)` e `sensor_mean` foram removidas por correlação absoluta superior a 0.90 com outras variáveis, causando multicolinearidade severa.
 
-*(Figura 4 — Impacto das novas variáveis temporais nas concentrações de CO, reports/figures/)*
+
 
 Criar estas variáveis foi das partes que mais gostámos nesta fase porque sentimos que estávamos mesmo a acrescentar algo ao dataset e não apenas a limpar. Percebemos que havia padrões temporais que os modelos não conseguiriam captar sem esta informação, como o facto de a poluição ser diferente às 7h da manhã e às 14h. A parte da seleção foi mais difícil porque tivemos de perceber o conceito de multicolinearidade e o que é que isso causaria nos modelos — mas depois de pesquisar ficou mais claro.
 
