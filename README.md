@@ -154,6 +154,7 @@ pip install -r requirements.txt
 # 3. Executar os notebooks por ordem
 jupyter notebook notebooks/1_0_eda_limpeza.ipynb         # Fase 2 — EDA e pré-processamento
 jupyter notebook notebooks/2_0_modelacao_treino.ipynb    # Fase 3 — Modelação e avaliação
+jupyter notebook notebooks/3_0_interpretacao.ipynb       # Fase 4 — Interpretação e entrega de valor
 ```
 
 > O dataset original está disponível no [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/387/air+quality) e no [Kaggle](https://www.kaggle.com/datasets/jhonan/airqualityuci). Deve ser colocado em `data/raw/` antes de executar os notebooks.
